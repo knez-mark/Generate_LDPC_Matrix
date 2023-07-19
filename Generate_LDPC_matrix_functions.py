@@ -15,7 +15,9 @@ import sys
 import numpy as np
 from numpy.linalg import inv, det
 from numpy.random import shuffle, randint
-
+from scipy.io import savemat
+from os import listdir
+from os.path import isfile, join
 
 # 0 gives no debug output, 1 gives a little, 2 gives a lot
 # verbose = 1 #######################################################
@@ -43,6 +45,19 @@ def read_alist_file(filename):
 
         return H
 
+def read_all_alist_files ():
+    mypath = 'alist_files/'
+    file_list = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+    file_list.remove ('.DS_Store')
+    for file in file_list:
+        H = read_alist_file (mypath+file)
+        save_mat_file ('mat_files/', H)
+
+def save_mat_file (mypath, H):
+    matrix_name = 'H_' + str(H.shape [0]) + '_' + str(H.shape [1])
+    filename = matrix_name + '.mat'
+    mdic = {matrix_name: H}
+    savemat(mypath + filename, mdic)
 
 def parse_alist_header(header):
     size = header.split()

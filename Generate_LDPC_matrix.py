@@ -70,12 +70,14 @@ print("\tk    :", k, " (info word length)")
 print("\tgap  : %i" % g)
 
 # Save the matrix to an alist file for future use:
-alist_filename = "n_%04i_k_%04i_gap_%02i.alist" % (n, k, g)
+alist_filename = "alist_files/n_%04i_k_%04i_gap_%02i.alist" % (n, k, g)
 
 # Create transposed alist file (this is the format required for the LDPC implmentation in C)
-alist_filename_transposed = "n_%04i_k_%04i_gap_%02i_transposed.alist" % (n, k, g)
+alist_filename_transposed = "alist_files_transposed/n_%04i_k_%04i_gap_%02i_transposed.alist" % (n, k, g)
 write_alist_file(alist_filename, bestH)
 write_alist_file(alist_filename_transposed, bestH.transpose())
 print("\nMatrix saved to alist file:", alist_filename, "\n")
 
-print(getSystematicGmatrixFromH (bestH).shape)
+print (bestH[0])
+
+print(getSystematicGmatrixFromH (bestH)[0])
